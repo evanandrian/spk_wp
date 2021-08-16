@@ -6,7 +6,6 @@
         <div class="col-sm-6">
             <form method="post" action="{{ route('insertkriteria') }}">
                 @csrf
-                @method('PUT')
                 <div class="card-body">
                     @if(session('errors'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -34,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <label>Id <span class="text-danger"></span></label>
-                    <input class="form-control" type="text" name="id" value="{!! ($kriteria->id) !!}" disabled="true"/>
+                    <input class="form-control" type="text" name="id" value="{!! ($kriteria->id) !!}" readonly/>
                 </div>
                 <div class="form-group">
                     <label>Kode <span class="text-danger">*</span></label>

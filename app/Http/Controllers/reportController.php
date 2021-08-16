@@ -19,4 +19,16 @@ class reportController extends Controller
         );
         return view('report/print_kriteria',$data);
     }
+
+    public function cetakLaporanAlternatif(){
+        $data = DB::table('tb_alternatif as tk')
+            ->select(DB::raw("tk.*"))
+            ->get();
+
+        $data = array(
+            'data' => $data,
+            'content'   => '',
+        );
+        return view('report/print_alternatif',$data);
+    }
 }

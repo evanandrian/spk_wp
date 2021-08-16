@@ -4,7 +4,7 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <form class="form-inline">
+            <form class="form-inline" method="get" action="{{ route('getdatakriteria') }}">
                 <div class="card-body">
                     @if(session('errors'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -32,10 +32,10 @@
                 </div>
                 <input type="hidden" name="m" value="kriteria" />
                 <div class="form-group" style="margin-left: 10px">
-                    <input class="form-control" type="text" placeholder="Pencarian. . ." name="" value="" />
+                    <input class="form-control" type="text" placeholder="Pencarian. . ." name="kriteria" value="{{request()->get("kriteria")}}" />
                 </div>
                 <div class="form-group" style="margin-left: 10px">
-                    <a class="btn btn-success" href="#"><span class="glyphicon glyphicon-refresh"></span> Refresh</a>
+                    <button class="btn btn-success" href="#"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
                 </div>
                 <div class="form-group" style="margin-left: 10px">
                     <a class="btn btn-primary" href="{{ route('tambah_kriteria') }}">
@@ -49,7 +49,7 @@
         <form method="post">
             @csrf
             @method('PUT')
-            <table class="table table-bordered table-hover table-striped">
+            <table id="t_Kriteria" class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
                     <th>No</th>

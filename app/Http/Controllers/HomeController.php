@@ -56,7 +56,12 @@ class HomeController extends Controller
 
     public function tr_alternatif()
     {
+        $dataAlter = DB::table('tb_alternatif as tk')
+            ->select(DB::raw("tk.*"))
+            ->get();
+
         $data = array(
+            'alternatif' => $dataAlter,
             'content'   => 'content/alternatif',
         );
         return view('layout/wrapper',$data);
@@ -97,7 +102,53 @@ class HomeController extends Controller
     public function tambah_alternatif()
     {
         $data = array(
-            'content'   => 'content/alternatif',
+            'content'   => 'transaksi/tr_alternatif',
+        );
+        return view('layout/wrapper',$data);
+    }
+
+    public function update_alternatif(Request $request)
+    {
+        $data = DB::table('tb_alternatif as tk')
+            ->select(DB::raw("tk.*"))
+            ->where('tk.id', $request['id'])
+            ->first();
+
+        $data = array(
+            'data' => $data,
+            'content'   => 'transaksi/up_alternatif',
+        );
+        return view('layout/wrapper',$data);
+    }
+
+    public function tambah_nilaialternatif()
+    {
+        $alternatif = DB::table('tb_alternatif as tk')
+            ->select(DB::raw("tk.id,tk.alternatif"))
+            ->get();
+
+        $data = array(
+            'alternatif' => $alternatif,
+            'content'   => 'transaksi/tr_nilaialternatif',
+        );
+        return view('layout/wrapper',$data);
+    }
+
+    public function update_nilaialternatif(Request $request)
+    {
+        $alternatif = DB::table('tb_alternatif as tk')
+            ->select(DB::raw("tk.id,tk.alternatif"))
+            ->get();
+
+        $data = DB::table('tb_alternatif as tk')
+            ->select(DB::raw("tk.*"))
+            ->where('tk.id', $request['id'])
+            ->first();
+
+        $data = array(
+            'alternatif' => $alternatif,
+            'data' => $data,
+            'content'   => 'transaksi/tr_nilaialternatif',
         );
         return view('layout/wrapper',$data);
     }

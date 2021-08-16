@@ -24,8 +24,9 @@ Route::get('register', [AuthController::class, 'showFormRegister'])->name('regis
 Route::post('register', [AuthController::class, 'register']);
 Route::post('/change/password',  [AuthController::class,'changePassword'])->name('profile.change.password');
 Route::post('/insertkriteria',  [transaksiController::class,'saveKriteria'])->name('insertkriteria');
-Route::get('tr_kriteria', [transaksiController::class, 'getDataKriteria'])->name('getdatakriteria');
 Route::get('/delete_kriteria',  [transaksiController::class,'deleteKriteria'])->name('delete_kriteria');
+Route::post('/insertalternatif',  [transaksiController::class,'saveAlternatif'])->name('insertalternatif');
+Route::get('/delete_alternatif',  [transaksiController::class,'deleteAlternatif'])->name('delete_alternatif');
 
 
 
@@ -38,7 +39,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('nilaialternatif', [HomeController::class, 'nilaialternatif'])->name('nilaialternatif');
     Route::get('perhitungan', [HomeController::class, 'perhitungan'])->name('perhitungan');
     Route::get('tambah_alternatif', [HomeController::class, 'tambah_alternatif'])->name('tambah_alternatif');
+    Route::get('getdatakriteria', [transaksiController::class, 'getDataKriteria'])->name('getdatakriteria');
     Route::get('tambah_kriteria', [HomeController::class, 'tambah_kriteria'])->name('tambah_kriteria');
     Route::get('update_kriteria',  [HomeController::class,'update_kriteria'])->name('update_kriteria');
     Route::get('cetak_kriteria',  [reportController::class,'cetakLaporanKriteria'])->name('cetak_kriteria');
+    Route::get('update_alternatif',  [HomeController::class,'update_alternatif'])->name('update_alternatif');
+    Route::get('getdataalternatif', [transaksiController::class, 'getDataAlternatif'])->name('getdataalternatif');
+    Route::get('cetak_alternatif',  [reportController::class,'cetakLaporanAlternatif'])->name('cetak_alternatif');
+    Route::get('tambah_nilaialternatif', [HomeController::class, 'tambah_nilaialternatif'])->name('tambah_nilaialternatif');
 });
