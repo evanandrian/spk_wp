@@ -40,7 +40,13 @@ class HomeController extends Controller
 
     public function nilaialternatif()
     {
+        $datas = DB::table('tb_nilaialternatif as tk')
+            ->join('tb_alternatif as ta','ta.id','=','tk.idalternatif')
+            ->select(DB::raw("tk.*,ta.alternatif"))
+            ->get();
+
         $data = array(
+            'data' => $datas,
             'content'   => 'content/nilaialternatif',
         );
         return view('layout/wrapper',$data);
@@ -49,6 +55,7 @@ class HomeController extends Controller
     public function perhitungan()
     {
         $data = array(
+            'hasil' => false,
             'content'   => 'content/perhitungan',
         );
         return view('layout/wrapper',$data);
@@ -109,13 +116,13 @@ class HomeController extends Controller
 
     public function update_alternatif(Request $request)
     {
-        $data = DB::table('tb_alternatif as tk')
+        $datas = DB::table('tb_alternatif as tk')
             ->select(DB::raw("tk.*"))
             ->where('tk.id', $request['id'])
             ->first();
 
         $data = array(
-            'data' => $data,
+            'data' => $datas,
             'content'   => 'transaksi/up_alternatif',
         );
         return view('layout/wrapper',$data);
@@ -136,19 +143,20 @@ class HomeController extends Controller
 
     public function update_nilaialternatif(Request $request)
     {
-        $alternatif = DB::table('tb_alternatif as tk')
-            ->select(DB::raw("tk.id,tk.alternatif"))
-            ->get();
-
-        $data = DB::table('tb_alternatif as tk')
-            ->select(DB::raw("tk.*"))
+        $nilaialternatif = DB::table('tb_nilaialternatif as tk')
+            ->join('tb_alternatif as ta','ta.id','=','tk.idalternatif')
+            ->select(DB::raw("tk.*,ta.alternatif"))
             ->where('tk.id', $request['id'])
             ->first();
 
+        $datas = DB::table('tb_alternatif as tk')
+            ->select(DB::raw("tk.id,tk.alternatif"))
+            ->get();
+
         $data = array(
-            'alternatif' => $alternatif,
-            'data' => $data,
-            'content'   => 'transaksi/tr_nilaialternatif',
+            'datai' => $nilaialternatif,
+            'data' => $datas,
+            'content'   => 'transaksi/up_nilaialternatif',
         );
         return view('layout/wrapper',$data);
     }

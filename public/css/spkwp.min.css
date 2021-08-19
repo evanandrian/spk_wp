@@ -1753,7 +1753,7 @@ a.text-danger:focus {
 
 .bg-primary {
     color: #fff;
-    background-color: #2780e3
+    background-color: #F40009
 }
 
 a.bg-primary:hover,
@@ -8065,13 +8065,13 @@ button.list-group-item-danger.active:focus {
 }
 
 .panel-primary {
-    border-color: #2780e3
+    border-color: #1E1E1E
 }
 
 .panel-primary>.panel-heading {
     color: #ffffff;
-    background-color: #2780e3;
-    border-color: #2780e3
+    background-color: #F40009;
+    border-color: #1E1E1E
 }
 
 .panel-primary>.panel-heading+.panel-collapse>.panel-body {

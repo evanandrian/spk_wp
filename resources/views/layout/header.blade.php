@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top" style="background-color: #2780e3; border-color: #2780e3">
+<nav class="navbar navbar-default navbar-static-top" style="background-color: #F40009; border-color: #1E1E1E">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -17,7 +17,7 @@
                 <li><a href="{{ route('perhitungan') }}"><span class="glyphicon glyphicon-calendar"></span> Perhitungan</a></li>
                 <li><a href="{{ route('ubahpassword') }}"><span class="glyphicon glyphicon-lock"></span> Password</a></li>
                 <li><a href="{{ route('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                <li><a href="https://shopee.co.id/" target="_blank"><span class="glyphicon glyphicon-shopping-cart"></span> Beli</a></li>
+{{--                <li><a href="https://shopee.co.id/" target="_blank"><span class="glyphicon glyphicon-shopping-cart"></span> Beli</a></li>--}}
             </ul>
         </div>
     </div>

@@ -4,7 +4,7 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <form class="form-inline" method="get" action="">
+            <form class="form-inline" method="get" action="{{ route('getdatanilaialternatif') }}">
                 <div class="card-body">
                     @if(session('errors'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -32,7 +32,7 @@
                 </div>
                 <input type="hidden" name="m" value="rel_alternatif" />
                 <div class="form-group" style="margin-left: 10px">
-                    <input class="form-control" type="text" name="q" value="" />
+                    <input class="form-control" type="text" name="alternatif" value="" />
                 </div>
                 <div class="form-group" style="margin-left: 10px">
                     <button class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
@@ -41,13 +41,14 @@
                     <a class="btn btn-primary" href="{{ route('tambah_nilaialternatif') }}"><span class="glyphicon glyphicon-plus"></span> Tambah</a>
                 </div>
                 <div class="form-group" style="margin-left: 10px">
-                    <button class="btn btn-default" href="#" target="_blank"><span class="glyphicon glyphicon-print"></span> Cetak</button>
+                    <a class="btn btn-default" href="{{route('cetak_nilaialternatif')}}" target="_blank"><span class="glyphicon glyphicon-print"></span> Cetak</a>
                 </div>
             </form>
         </div>
         <table class="table table-bordered table-hover table-striped">
             <thead>
             <tr>
+                <th>No</th>
                 <th>Kode</th>
                 <th>Nama Alternatif</th>
                 <th>C1</th>
@@ -60,14 +61,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>A1</td>
-                <td>Alternatif 1</td>
-                <td>3500</td><td>70</td><td>10</td><td>80</td><td>3000</td><td>36</td>    <td>
-                    <a class="btn btn-xs btn-warning" href="?m=rel_alternatif_ubah&ID=A01"><span class="glyphicon glyphicon-edit"></span></a>
-                    <a class="btn btn-xs btn-danger" href="#" onclick="return confirm('Hapus data?')"><span class="glyphicon glyphicon-trash"></span></a>
-                </td>
-            </tr>
+            <?php $i = 0 ?>
+            @foreach($data as $item)
+                <?php $i++ ?>
+                <tr>
+                    <td>{{$i}}</td>
+                    <td>{{$item->kode}}</td>
+                    <td>{{$item->alternatif}}</td>
+                    <td>{{$item->c1}}</td>
+                    <td>{{$item->c2}}</td>
+                    <td>{{$item->c3}}</td>
+                    <td>{{$item->c4}}</td>
+                    <td>{{$item->c5}}</td>
+                    <td>{{$item->c6}}</td>
+                    <td>
+                        <a class="btn btn-xs btn-warning" href="{!! route('update_nilaialternatif',['id' => $item->id ]) !!}"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a class="btn btn-xs btn-danger" href="{!! route('delete_nilai',['id' => $item->id ]) !!}" onclick="return confirm('Hapus data?')"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>

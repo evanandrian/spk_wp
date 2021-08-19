@@ -27,8 +27,9 @@ Route::post('/insertkriteria',  [transaksiController::class,'saveKriteria'])->na
 Route::get('/delete_kriteria',  [transaksiController::class,'deleteKriteria'])->name('delete_kriteria');
 Route::post('/insertalternatif',  [transaksiController::class,'saveAlternatif'])->name('insertalternatif');
 Route::get('/delete_alternatif',  [transaksiController::class,'deleteAlternatif'])->name('delete_alternatif');
-
-
+Route::post('/insertnilaialternatif',  [transaksiController::class,'saveNilai'])->name('insertnilaialternatif');
+Route::get('/delete_nilai',  [transaksiController::class,'deleteNilai'])->name('delete_nilai');
+Route::post('/hasilanalisa',  [transaksiController::class,'hitungHasilSPK'])->name('hitungHasilSPK');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
@@ -46,5 +47,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('update_alternatif',  [HomeController::class,'update_alternatif'])->name('update_alternatif');
     Route::get('getdataalternatif', [transaksiController::class, 'getDataAlternatif'])->name('getdataalternatif');
     Route::get('cetak_alternatif',  [reportController::class,'cetakLaporanAlternatif'])->name('cetak_alternatif');
+    Route::get('getdatanilaialternatif', [transaksiController::class, 'getDataNilai'])->name('getdatanilaialternatif');
     Route::get('tambah_nilaialternatif', [HomeController::class, 'tambah_nilaialternatif'])->name('tambah_nilaialternatif');
+    Route::get('update_nilaialternatif',  [HomeController::class,'update_nilaialternatif'])->name('update_nilaialternatif');
+    Route::get('cetak_nilaialternatif',  [reportController::class,'cetakLaporanNilaiAlternatif'])->name('cetak_nilaialternatif');
+    Route::get('cetak_hasil',  [reportController::class,'cetakLaporanPerhitungan'])->name('cetak_hasil');
 });
