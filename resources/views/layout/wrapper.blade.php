@@ -1,4 +1,4 @@
-@include('layout/head')
-@include('layout/header')
+@include('layout/lyt_head')
+@include('layout/lyt_header')
 @include($content)
-@include('layout/footer')
+@include('layout/lyt_footer')

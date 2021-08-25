@@ -42,7 +42,8 @@ class HomeController extends Controller
     {
         $datas = DB::table('tb_nilaialternatif as tk')
             ->join('tb_alternatif as ta','ta.id','=','tk.idalternatif')
-            ->select(DB::raw("tk.*,ta.alternatif"))
+            ->join('tb_atribut as at','at.id','=','tk.idatribut')
+            ->select(DB::raw("tk.*,ta.alternatif,at.atribut"))
             ->get();
 
         $data = array(
@@ -88,6 +89,7 @@ class HomeController extends Controller
 
     public function update_kriteria(Request $request)
     {
+
         $dataKriteria = DB::table('tb_kriteria as tk')
             ->leftJoin('tb_atribut as ta','ta.id','=','tk.idatribut')
             ->select(DB::raw("tk.*,ta.atribut"))
@@ -134,8 +136,13 @@ class HomeController extends Controller
             ->select(DB::raw("tk.id,tk.alternatif"))
             ->get();
 
+        $atribut = DB::table('tb_atribut as tk')
+            ->select(DB::raw("tk.id,tk.atribut"))
+            ->get();
+
         $data = array(
             'alternatif' => $alternatif,
+            'atribut' => $atribut,
             'content'   => 'transaksi/tr_nilaialternatif',
         );
         return view('layout/wrapper',$data);
@@ -145,7 +152,8 @@ class HomeController extends Controller
     {
         $nilaialternatif = DB::table('tb_nilaialternatif as tk')
             ->join('tb_alternatif as ta','ta.id','=','tk.idalternatif')
-            ->select(DB::raw("tk.*,ta.alternatif"))
+            ->leftJoin('tb_atribut as at','at.id','=','tk.idatribut')
+            ->select(DB::raw("tk.*,ta.alternatif,at.atribut"))
             ->where('tk.id', $request['id'])
             ->first();
 
@@ -153,9 +161,14 @@ class HomeController extends Controller
             ->select(DB::raw("tk.id,tk.alternatif"))
             ->get();
 
+        $atribut = DB::table('tb_atribut as tk')
+            ->select(DB::raw("tk.id,tk.atribut"))
+            ->get();
+
         $data = array(
             'datai' => $nilaialternatif,
-            'data' => $datas,
+            'alternatif' => $datas,
+            'atribut' => $atribut,
             'content'   => 'transaksi/up_nilaialternatif',
         );
         return view('layout/wrapper',$data);

@@ -17,7 +17,7 @@ class AuthController extends Controller
             //Login Success
             return redirect()->route('home');
         }
-        return view('auth/login');
+        return view('auth/loginNew');
     }
 
     public function login(Request $request)
@@ -46,7 +46,8 @@ class AuthController extends Controller
 
         Auth::attempt($data);
 
-        if (Auth::check()) { // true sekalian session field di users nanti bisa dipanggil via Auth
+        if (Auth::check()) {
+            // true sekalian session field di users nanti bisa dipanggil via Auth
             //Login Success
             $data = array(
                 'content'   => 'content/home',
@@ -58,7 +59,7 @@ class AuthController extends Controller
             $data = array(
                 'content'   => '',
             );
-            return view('auth/login',$data);
+            return view('auth/loginNew',$data);
         }
 
     }
@@ -68,7 +69,7 @@ class AuthController extends Controller
         $data = array(
             'content'   => '',
         );
-        return view('auth/register');
+        return view('auth/registerNew');
     }
 
     public function register(Request $request)
@@ -101,13 +102,13 @@ class AuthController extends Controller
             $data = array(
                 'content'   => '',
             );
-            return view('auth/login',$data);
+            return view('auth/loginNew',$data);
         } else {
             Session::flash('errors', ['' => 'Register gagal! Silahkan ulangi beberapa saat lagi']);
             $data = array(
                 'content'   => '',
             );
-            return view('auth/register',$data);
+            return view('auth/registerNew',$data);
         }
     }
 
@@ -117,7 +118,7 @@ class AuthController extends Controller
         $data = array(
             'content'   => '',
         );
-        return view('auth/login',$data);
+        return view('auth/loginNew',$data);
     }
 
     /**

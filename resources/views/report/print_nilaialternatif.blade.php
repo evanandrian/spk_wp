@@ -39,6 +39,7 @@
             <th>No</th>
             <th>Kode</th>
             <th>Nama Alternatif</th>
+            <th>Nama Atribut</th>
             <th>C1</th>
             <th>C2</th>
             <th>C3</th>
@@ -54,6 +55,7 @@
             <td>{{$i}}</td>
             <td>{{$item->kode}}</td>
             <td>{{$item->alternatif}}</td>
+            <td>{{$item->atribut}}</td>
             <td>{{$item->c1}}</td>
             <td>{{$item->c2}}</td>
             <td>{{$item->c3}}</td>

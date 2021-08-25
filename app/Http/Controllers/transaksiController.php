@@ -198,7 +198,8 @@ class transaksiController extends Controller
     {
         $datas = DB::table('tb_nilaialternatif as tk')
             ->join('tb_alternatif as ta','ta.id','=','tk.idalternatif')
-            ->select(DB::raw("tk.*,ta.alternatif"));
+            ->join('tb_atribut as at','at.id','=','tk.idatribut')
+            ->select(DB::raw("tk.*,ta.alternatif,at.atribut"));
 
         if (isset($request['alternatif']) || $request['alternatif'] != ""){
             $datas = $datas->where('ta.alternatif','LIKE', '%'.$request['alternatif'].'%');
@@ -225,6 +226,7 @@ class transaksiController extends Controller
             'c4'                => 'required',
             'c5'                => 'required',
             'c6'                => 'required',
+            'atribut'                => 'required',
         ];
 
         $messages = [
@@ -236,6 +238,7 @@ class transaksiController extends Controller
             'c4.required'     => 'Nilai Kriteria 4 wajib diisi',
             'c5.required' => 'Nilai Kriteria 5 diisi',
             'c6.required'     => 'Nilai Kriteria 6 wajib diisi',
+            'atribut.required'     => 'Atribut wajib diisi',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -246,6 +249,10 @@ class transaksiController extends Controller
 
         if ($request['alternatif'] == "0"){
             return redirect()->back()->withErrors("Alternatif belum dipilih")->withInput($request->all);
+        }
+
+        if ($request['atribut'] == "0"){
+            return redirect()->back()->withErrors("Atribut belum dipilih")->withInput($request->all);
         }
 
         if ($request['id'] == "" || $request['id'] == null){
@@ -264,6 +271,7 @@ class transaksiController extends Controller
             $nilaialter->c4 = $request['c4'];
             $nilaialter->c5 = $request['c5'];
             $nilaialter->c6 = $request['c6'];
+            $nilaialter->idatribut = $request['atribut'];
             $simpan = $nilaialter->save();
 
         if($simpan){
@@ -307,21 +315,32 @@ class transaksiController extends Controller
         $TempVektor = DB::statement("delete from temp_vektor");
         $nilaialternatif = DB::table('tb_nilaialternatif as tk')
             ->join('tb_alternatif as ta','ta.id','=','tk.idalternatif')
+            ->join('tb_atribut as atr','atr.id','=','tk.idatribut')
             ->select(DB::raw("CONCAT(ta.kode,'-',ta.alternatif) AS judul,ta.kode,ta.alternatif,
-                                    tk.c1,tk.c2,tk.c3,tk.c4,tk.c5,tk.c6"))
+                                    tk.idatribut,atr.atribut,tk.c1,tk.c2,tk.c3,tk.c4,tk.c5,tk.c6"))
             ->orderBy('ta.id', 'ASC')
             ->get();
         $wj = 0;
         $wj = $request['c1'] + $request['c2'] + $request['c3'] + $request['c4'] + $request['c5'] + $request['c6'];
-        $nilai = 0 - ($request['c1'] / $wj);
-        $nbobot[0] = $nilai;
+        $nbobot[0] = ($request['c1'] / $wj);
         $nbobot[1] = ($request['c1'] / $wj);
         $nbobot[2] = ($request['c2'] / $wj);
         $nbobot[3] = ($request['c3'] / $wj);
         $nbobot[4] = ($request['c4'] / $wj);
         $nbobot[5] = ($request['c5'] / $wj);
         $nbobot[6] = ($request['c6'] / $wj);
-
+        if ($nilaialternatif[0]->idatribut == 2){
+            $nbobot[0] = 0 - $nbobot[0];
+        }
+        if ($nilaialternatif[1]->idatribut == 2){
+            $nbobot[1] = 0 -  $nbobot[1];
+        }
+        if ($nilaialternatif[2]->idatribut == 2){
+            $nbobot[2] = 0 - $nbobot[2];
+        }
+        if ($nilaialternatif[3]->idatribut == 2){
+            $nbobot[3] = 0 - $nbobot[3];
+        }
 
         $totalvektors = 0;
         foreach ($nilaialternatif AS $itm){

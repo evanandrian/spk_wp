@@ -36,7 +36,8 @@ class reportController extends Controller
 
         $datas = DB::table('tb_nilaialternatif as tk')
             ->join('tb_alternatif as ta','ta.id','=','tk.idalternatif')
-            ->select(DB::raw("tk.*,ta.alternatif"))
+            ->join('tb_atribut as at','at.id','=','tk.idatribut')
+            ->select(DB::raw("tk.*,ta.alternatif,at.atribut"))
             ->get();
 
         $data = array(
